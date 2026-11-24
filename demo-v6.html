@@ -1,0 +1,296 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#11151a">
+<meta name="description" content="Portfolio de JM, desarrollador de procesos de datos para reporting regulatorio bancario y autor de La Autopsia del Dato.">
+<title>JM — La Autopsia del Dato</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --graphite: #11151a;
+    --steel: #667884;
+    --white: #edf4f5;
+    --blue: #74beda;
+    --muted: #bac9cf;
+    --line: #394650;
+    --paper: #e7ecec;
+    --ink: #17262e;
+    --mono: "Cascadia Mono", Consolas, monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; color: var(--white); background: var(--graphite); font: 1rem/1.65 system-ui, "Segoe UI", sans-serif; }
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+  h1, h2, h3, p, figure, dl, dd { margin: 0; }
+  h1, h2, h3 { line-height: 1.07; letter-spacing: -.05em; }
+  h2 { font-size: clamp(2.25rem, 4.6vw, 4.45rem); }
+  h3 { font-size: clamp(1.55rem, 2.7vw, 2.4rem); }
+  section[id], main[id], #tecnologias { scroll-margin-top: 7rem; }
+  .wrap { width: min(1260px, calc(100% - clamp(36px, 9vw, 118px))); margin-inline: auto; }
+  .section { padding-block: clamp(54px, 8vw, 112px); }
+  .eyebrow { color: var(--blue); font: 650 .875rem/1.5 var(--mono); letter-spacing: .065em; }
+  .skip { position: fixed; top: 1rem; left: 1rem; z-index: 5; transform: translateY(-200%); }
+  .skip:focus { transform: none; }
+  .header { position: sticky; z-index: 2; top: 0; background: #11151af2; border-bottom: 1px solid var(--line); backdrop-filter: blur(14px); }
+  .header-inner, .nav, .brand { display: flex; align-items: center; }
+  .header-inner { min-height: 72px; justify-content: space-between; gap: 12px 28px; }
+  .brand { gap: 11px; font-weight: 650; white-space: nowrap; }
+  .brand-mark { display: grid; place-items: center; width: 38px; height: 34px; border: 1px solid #78909b; color: var(--blue); font: 750 1rem var(--mono); }
+  .nav { flex-wrap: wrap; gap: 4px clamp(12px, 2.8vw, 33px); }
+  .nav a { color: var(--muted); font-size: .9375rem; padding-block: 5px; transition: color .22s; }
+  .nav a:hover { color: var(--white); }
+  .hero {
+    overflow: hidden;
+    isolation: isolate;
+    background: repeating-linear-gradient(90deg, #26343c 0 1px, transparent 1px 205px), linear-gradient(105deg, #12171c 5%, #1b252c 65%, #1c2830);
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-inner { position: relative; display: grid; grid-template-columns: minmax(0, .83fr) minmax(0, 1.17fr); align-items: center; min-height: 575px; }
+  .hero-copy { position: relative; z-index: 1; padding-block: 62px; }
+  .hero h1 { font-size: clamp(3.1rem, 5.5vw, 5.8rem); margin-block: 16px 22px; max-width: 10ch; }
+  .hero h1 span { color: #a5d6e6; }
+  .lead { color: var(--muted); max-width: 41ch; font-size: 1.09rem; }
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 25px; }
+  .button { display: inline-flex; align-items: center; padding: 10px 16px; border: 1px solid #70838e; border-radius: 4px; font-weight: 700; transition: background .25s, box-shadow .25s; }
+  .button.primary { color: #14232a; background: var(--white); border-color: var(--white); }
+  .button:hover { background: #30434d; box-shadow: 0 0 22px #74beda40; }
+  .button.primary:hover { background: #bce5f0; }
+  .room {
+    position: relative;
+    min-width: 0;
+    margin-inline: 0 -6%;
+    mask-image: linear-gradient(to right, transparent, #000 13%, #000 88%, transparent),
+      linear-gradient(to bottom, transparent, #000 9%, #000 90%, transparent);
+    mask-composite: intersect;
+  }
+  .room img { display: block; width: 100%; height: auto; }
+  @media (min-width: 1051px) {
+    .hero-inner { grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr); }
+    .room { margin-inline-end: calc(-1 * min(9%, max(clamp(18px, 4.5vw, 59px), (100vw - 1260px) / 2))); }
+  }
+
+  .profile { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); gap: clamp(27px, 7vw, 105px); align-items: start; }
+  .profile h2 { margin-bottom: 19px; }
+  .profile p { color: var(--muted); max-width: 56ch; }
+  .profile p + p { margin-top: 13px; }
+  .tools { padding: 18px 22px; border-top: 1px solid #78919c; background: linear-gradient(135deg, #263139, #171e24); }
+  .tools h3 { margin-bottom: 12px; }
+  .tools dl div { display: grid; grid-template-columns: minmax(65px, .45fr) 1fr; gap: 10px; padding-block: 8px; border-top: 1px solid var(--line); }
+  .tools dt { color: var(--blue); font-weight: 700; }
+  .tools dd { color: var(--muted); }
+
+  .files { color-scheme: light; background: var(--paper); color: var(--ink); }
+  .section-intro { margin-block: 10px 31px; color: #40545e; }
+  .cases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  .case { background: #f4f7f7; border: 1px solid #a5b5ba; box-shadow: 0 3px 0 #cad4d6; transition: box-shadow .25s, border-color .25s; }
+  .case:first-child { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; }
+  .case-copy { padding: clamp(19px, 3.3vw, 40px); align-self: center; }
+  .case-head { display: flex; flex-wrap: wrap; align-items: center; gap: 7px 12px; margin-bottom: 12px; }
+  .case-id { display: inline-block; padding: 3px 9px; background: #d6e2e5; border-left: 2px solid #4f7585; font: 650 .875rem/1.5 var(--mono); }
+  .status { color: #3e5964; font-size: .875rem; }
+  .case-copy p { margin-top: 10px; color: #3b515b; }
+  .case-copy .stack { color: #254958; font-weight: 650; font-size: .875rem; }
+  .case-art { min-height: 175px; display: grid; place-items: center; overflow: hidden; background: #202d33; }
+  .case-art svg { display: block; width: min(100%, 520px); transition: filter .35s ease-out; }
+  @media (hover: hover) and (pointer: fine) {
+    .case:hover { border-color: #527889; box-shadow: 0 3px 0 #a8bcc3, 0 9px 24px #39556026; }
+    .case:hover svg { filter: brightness(1.09); }
+  }
+
+  .lab-section { background: linear-gradient(110deg, #141c22, #1a252d 65%, #11171c); }
+  .lab { display: grid; grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr); align-items: center; gap: clamp(24px, 5vw, 72px); }
+  .lab h2 { margin-block: 12px 16px; }
+  .lab p:last-child { max-width: 45ch; color: var(--muted); }
+  .lab-art { border: 1px solid #647985; background: #172329; box-shadow: 0 12px 30px #080c1066, 0 2px 7px #080c104d; }
+  .lab-art svg { display: block; width: 100%; height: auto; }
+  .contact { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px; }
+  #contacto, footer { border-top: 1px solid var(--line); }
+  footer { padding-block: 20px; color: var(--muted); font-size: .875rem; }
+  .appear { animation: appear .7s ease-out both; }
+  @keyframes appear { from { opacity: .5; translate: 0 12px; } to { opacity: 1; translate: 0 0; } }
+
+  @media (max-width: 900px) {
+    .hero-inner { min-height: 510px; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); }
+    .brand-name { display: none; }
+  }
+  @media (max-width: 680px) {
+    .header-inner { padding-block: 9px; min-height: 64px; gap: 8px 13px; }
+    .nav { gap: 1px 12px; }
+    .nav a { font-size: .875rem; }
+    .hero-inner, .profile, .cases, .case:first-child, .lab { grid-template-columns: 1fr; }
+    .hero-inner { min-height: 0; padding-block-end: 12px; }
+    .hero-copy { padding-block: 45px 20px; }
+    .room { margin-inline: -12px; }
+    .case-art { min-height: 145px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+<a class="button primary skip" href="#inicio">Saltar al contenido</a>
+<header class="header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#inicio" aria-label="JM, inicio"><span class="brand-mark" aria-hidden="true">JM</span><span class="brand-name">La Autopsia del Dato</span></a>
+    <nav class="nav" aria-label="Navegación principal">
+      <a href="#sobre-mi">Sobre mí</a><a href="#tecnologias">Tecnologías</a><a href="#proyectos">Expedientes</a><a href="#laboratorio">Laboratorio</a><a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+<main id="inicio" tabindex="-1">
+  <section class="hero" aria-labelledby="titulo">
+    <div class="wrap hero-inner">
+      <div class="hero-copy appear">
+        <p class="eyebrow">JM / La Autopsia del Dato</p>
+        <h1 id="titulo">El dato, <span>bajo examen.</span></h1>
+        <p class="lead">Desarrollo y mantengo procesos de datos para reporting regulatorio bancario con SQL, Oracle y Oracle Data Integrator (ODI).</p>
+        <div class="actions"><a class="button primary" href="#proyectos">Explorar expedientes</a><a class="button" href="#laboratorio">Ver laboratorio</a></div>
+      </div>
+
+      <figure class="room appear">
+        <img src="assets/dato_autopsia.png" width="1790" height="879" alt="Mascota con forma de informe y ojos en X, tumbada en una mesa de autopsias bajo un esc?ner de luz azul.">
+      </figure>
+    </div>
+  </section>
+
+  <section class="section wrap profile" id="sobre-mi" aria-labelledby="perfil">
+    <div data-reveal>
+      <h2 id="perfil">Sobre mí</h2>
+      <p>Trabajo en el desarrollo y mantenimiento de procesos de datos para reporting regulatorio bancario. Uso SQL y Oracle para consultar y transformar datos, y Oracle Data Integrator para integrar la información que alimenta los informes.</p>
+      <p>Estoy aprendiendo Python y explorando la automatización y la inteligencia artificial en el desarrollo de software.</p>
+    </div>
+    <div class="tools" id="tecnologias" data-reveal>
+      <h3>Herramientas de análisis</h3>
+      <dl><div><dt>SQL</dt><dd>Consulta y transformación</dd></div><div><dt>Oracle</dt><dd>Bases de datos</dd></div><div><dt>ODI</dt><dd>Integración de datos</dd></div></dl>
+    </div>
+  </section>
+
+  <section class="section files" id="proyectos" aria-labelledby="expedientes">
+    <div class="wrap">
+      <h2 id="expedientes" data-reveal>Expedientes abiertos</h2>
+      <p class="section-intro">Proyectos personales de calidad de datos, automatización y creación audiovisual.</p>
+      <div class="cases">
+        <article class="case" data-reveal>
+          <figure class="case-art" aria-hidden="true">
+            <svg viewBox="0 0 480 220">
+              <path d="M40 55h400v110H40Z" fill="none" stroke="#4a616a"/>
+              <g fill="#567783" stroke="#9cc6d0">
+                <path d="m238 44 128 48-122 50-128-48Z"/>
+                <path d="m238 63 128 48-122 50-128-48Z" fill="#334c56"/>
+                <path d="m238 84 128 48-122 50-128-48Z" fill="#273c44"/>
+              </g>
+              <g stroke="#82aab5" opacity=".7"><path d="m148 123 127 46m-95-59 127 46m-96-59 127 46m-190 2 122-49m-90 60 121-49m-89 60 121-49"/></g>
+              <path d="m239 108 33 12-31 13-33-12Z" fill="#b4dbe4"/>
+              <path d="M241 121v-42h56m-55 53v38h-49" fill="none" stroke="#e0f4f5" stroke-dasharray="3 4"/>
+            </svg>
+          </figure>
+          <div class="case-copy">
+            <div class="case-head"><span class="case-id">Caso 001</span><span class="status">En desarrollo</span></div>
+            <h3>SQL Data Toolkit</h3>
+            <p>Propuesta de utilidades SQL para detectar duplicados, revisar valores nulos y conciliar datos en Oracle.</p>
+            <p class="stack">SQL · Oracle</p>
+          </div>
+        </article>
+        <article class="case" data-reveal>
+          <figure class="case-art" aria-hidden="true">
+            <svg viewBox="0 0 480 185">
+              <g fill="none" stroke="#6a8995"><path d="M58 128h360M58 53h360M58 90h360" opacity=".45"/><path d="M77 126h47l33-55h69l28-11h132m-229 11 42 53h88l25-37h74" stroke-width="2"/></g>
+              <path d="M77 126h47l33-55h69l28-11h74m-129 64h88l25-37h37" fill="none" stroke="#aec9dc" stroke-width="3"/>
+              <g fill="#c2b8d5"><circle cx="157" cy="71" r="6"/><circle cx="254" cy="60" r="6"/><circle cx="199" cy="124" r="6"/><circle cx="312" cy="87" r="6"/></g>
+            </svg>
+          </figure>
+          <div class="case-copy">
+            <div class="case-head"><span class="case-id">Caso 002</span><span class="status">En desarrollo</span></div>
+            <h3>AI Workflow Lab</h3>
+            <p>Experimentos con Python y asistentes de IA para automatizar tareas y documentar los resultados.</p>
+            <p class="stack">Python · IA · Automatización</p>
+          </div>
+        </article>
+        <article class="case" data-reveal>
+          <figure class="case-art" aria-hidden="true">
+            <svg viewBox="0 0 480 185">
+              <g transform="rotate(-7 240 93)">
+                <rect x="82" y="39" width="316" height="107" rx="4" fill="#17242a" stroke="#8ba5ae"/>
+                <path d="M94 48h291M94 136h291" stroke="#a0b9c1" stroke-width="4" stroke-dasharray="8 8"/>
+                <path d="M98 60h88v64H98zm98 0h88v64h-88zm98 0h88v64h-88z" fill="#394f57"/>
+                <path d="m106 113 26-32 25 24 17-10v18zm199 0 30-36 32 36z" fill="#74909a"/>
+                <path d="M222 97q1-21 18-21t18 21m-31-2q-6 19-16 11m22-10q-2 15-9 18m27-19q6 19 16 11m-22-10q2 15 9 18" fill="none" stroke="#c8e4eb" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="235" cy="87" r="2" fill="#c8e4eb"/><circle cx="245" cy="87" r="2" fill="#c8e4eb"/>
+              </g>
+            </svg>
+          </figure>
+          <div class="case-copy">
+            <div class="case-head"><span class="case-id">Caso 003</span><span class="status">En desarrollo</span></div>
+            <h3>Pulpeando la Historia</h3>
+            <p>Un pulpo, humor absurdo y aventuras históricas. Un experimento de creación de vídeos mediante código e IA.</p>
+            <p class="stack">Python · FFmpeg · IA</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section lab-section" id="laboratorio" aria-labelledby="nombre-lab">
+    <div class="wrap lab">
+      <div data-reveal>
+        <p class="eyebrow">Laboratorio personal</p>
+        <h2 id="nombre-lab">La Autopsia del Dato</h2>
+        <p>Aquí descompongo ideas en pruebas pequeñas. Exploro Python, automatización e inteligencia artificial, y documento lo que observo para decidir qué probar después.</p>
+      </div>
+      <figure class="lab-art" data-reveal>
+        <svg viewBox="0 0 620 390" role="img" aria-labelledby="lab-visual">
+          <title id="lab-visual">Superficie de trabajo iluminada con láminas translúcidas de análisis de datos</title>
+          <defs>
+            <linearGradient id="bench" x2="1" y2="1"><stop stop-color="#172329"/><stop offset=".55" stop-color="#51656c"/><stop offset="1" stop-color="#23333a"/></linearGradient>
+            <linearGradient id="plate" x2="1" y2="1"><stop stop-color="#a4c5cd" stop-opacity=".46"/><stop offset="1" stop-color="#426e7c" stop-opacity=".35"/></linearGradient>
+            <radialGradient id="bench-light" cx=".49" cy=".37"><stop stop-color="#bcf0f5" stop-opacity=".42"/><stop offset="1" stop-color="#bcf0f5" stop-opacity="0"/></radialGradient>
+            <filter id="lab-soft" x="-.1" y="-1" width="1.2" height="3"><feGaussianBlur stdDeviation="5"/></filter>
+          </defs>
+          <path d="M0 0h620v390H0Z" fill="url(#bench)"/>
+          <path d="M0 76h620M0 315h620M84 0v390M534 0v390" stroke="#a1b3ba" stroke-opacity=".34"/>
+          <ellipse cx="312" cy="170" rx="302" ry="192" fill="url(#bench-light)"/>
+          <path d="M126 28h374" stroke="#bce6ef" stroke-width="9" opacity=".34" filter="url(#lab-soft)"/>
+          <path d="M126 28h374" stroke="#e2f6f6" stroke-width="4"/>
+          <g transform="translate(60 54) rotate(-13 250 145)">
+            <rect x="56" y="48" width="369" height="194" rx="9" fill="#0a1419" opacity=".54" transform="translate(11 13)"/>
+            <rect x="56" y="48" width="369" height="194" rx="9" fill="url(#plate)" stroke="#c1dee2"/>
+            <path d="M79 77h322v135H79Z" fill="none" stroke="#b9d5dc" stroke-opacity=".5"/>
+            <path d="M79 123h322M79 167h322m-243-90v135m80-135v135m84-135v135" stroke="#b9d5dc" stroke-opacity=".28"/>
+            <path d="m106 181 61-37 53 12 71-41 77 10m-262 56 61-37 15-34 93-9 16 14" fill="none" stroke="#e1f7f8" stroke-width="2.5"/>
+            <g fill="#d8f3f5"><circle cx="106" cy="181" r="5"/><circle cx="167" cy="144" r="5"/><circle cx="220" cy="156" r="5"/><circle cx="291" cy="115" r="5"/><circle cx="368" cy="125" r="5"/></g>
+          </g>
+          <g transform="translate(360 206) rotate(13 82 57)">
+            <rect width="170" height="108" rx="6" fill="#263940" stroke="#8dabb4"/>
+            <rect x="11" y="12" width="148" height="83" rx="2" fill="#17262e"/>
+            <path d="M25 68h118M25 46h118m-106 0v22m31-22v22m31-22v22m31-22v22" stroke="#748d97" stroke-opacity=".65"/>
+            <path d="m28 65 24-14 24 6 23-19 20 7 22-13" fill="none" stroke="#b9dce5" stroke-width="2"/>
+          </g>
+        </svg>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="contacto" aria-labelledby="contact-title">
+    <div class="wrap contact"><h2 id="contact-title">Encuéntrame en GitHub</h2><a class="button primary" href="https://github.com/JavierMoreno-code">Ver perfil de GitHub</a></div>
+  </section>
+</main>
+<footer><div class="wrap">JM · La Autopsia del Dato</div></footer>
+<script>
+  const motion = matchMedia('(prefers-reduced-motion: no-preference)');
+  if (motion.matches && 'IntersectionObserver' in window) {
+    const reveal = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add('appear');
+        reveal.unobserve(entry.target);
+      }
+    }, { threshold: 0.12 });
+    document.querySelectorAll('[data-reveal]').forEach((element) => reveal.observe(element));
+  }
+</script>
+</body>
+</html>

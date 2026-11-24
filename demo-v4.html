@@ -1,0 +1,369 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0c1017">
+<meta name="description" content="Portfolio de JM y La Autopsia del Dato, laboratorio personal de datos, automatización e IA. Desarrollo con SQL, Oracle y ODI para reporting regulatorio bancario.">
+<title>JM / La Autopsia del Dato</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #0c1017;
+    --text: #f2f6ff;
+    --muted: #aebbd0;
+    --blue: #7abbff;
+    --violet: #b3a3f7;
+    --line: #29364b;
+    --surface: #121a28;
+    --radius: 22px;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 1rem/1.65 system-ui, "Segoe UI", sans-serif; }
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible { outline: 2px solid var(--blue); outline-offset: 5px; }
+  h1, h2, h3, p, figure, dl, dd { margin: 0; }
+  h1, h2, h3 { line-height: 1.08; }
+  p, dd { color: var(--muted); }
+  [id] { scroll-margin-top: 112px; }
+  .wrap { width: min(1160px, calc(100% - clamp(32px, 8vw, 96px))); margin-inline: auto; }
+  .skip { position: fixed; z-index: 5; inset: .75rem auto auto .75rem; transform: translateY(-200%); }
+  .skip:focus { transform: none; }
+  .header { position: sticky; z-index: 3; top: 0; border-bottom: 1px solid #29364baa; background: #0c1017eb; backdrop-filter: blur(16px); }
+  .header-inner { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 12px 24px; }
+  .brand { display: inline-flex; align-items: center; gap: 11px; font-size: .875rem; font-weight: 650; white-space: nowrap; }
+  .brand svg { width: 39px; height: 34px; color: var(--blue); }
+  .brand span { padding-left: 11px; border-left: 1px solid var(--line); }
+  .nav { display: flex; align-items: center; flex-wrap: wrap; gap: 8px clamp(12px, 2.4vw, 30px); }
+  .nav a { padding-block: 5px; font-size: .9375rem; color: var(--muted); transition: color .2s; }
+  .nav a:hover { color: var(--blue); }
+  .nav .nav-contact { padding: 7px 13px; border: 1px solid #475c7b; border-radius: 9px; color: var(--text); }
+  .hero { overflow: clip; background: radial-gradient(ellipse at 77% 54%, #18384caa, transparent 46%), radial-gradient(ellipse at 98% 42%, #34245364, transparent 37%); }
+  .hero-inner { min-height: 610px; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); align-items: center; gap: 24px; padding-block: clamp(56px, 9vw, 105px); }
+  .eyebrow { color: var(--blue); font-size: .875rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+  h1 { margin: 16px 0 20px; font-size: clamp(2.7rem, 6.1vw, 5.4rem); letter-spacing: -.07em; text-wrap: balance; }
+  .gradient { color: #a7c9ff; background: linear-gradient(100deg, #9cd7ff, #81adff 53%, #b5a2fa); background-clip: text; -webkit-text-fill-color: transparent; }
+  .intro { max-width: 47ch; font-size: 1.08rem; }
+  .actions { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 26px; }
+  .button { display: inline-flex; width: fit-content; align-items: center; justify-content: center; padding: 11px 17px; border: 1px solid #455873; border-radius: 10px; background: #151e2b; color: var(--text); font-weight: 700; transition: transform .24s, box-shadow .24s, border-color .24s; }
+  .button:hover { transform: translateY(-2px); border-color: var(--blue); box-shadow: 0 9px 24px #0a101a88; }
+  .button.primary { color: #10182a; border-color: transparent; background: linear-gradient(110deg, #a0d9ff, #88adf9); }
+  .hero-art { --x: 0px; --y: 0px; position: relative; isolation: isolate; }
+  .hero-art::before { content: ""; position: absolute; inset: 13%; z-index: -1; background: radial-gradient(ellipse, #4c86dc35, transparent 68%); transform: translate(calc(var(--x) * -.6), calc(var(--y) * -.6)); transition: transform .45s ease-out; }
+  .signature { display: block; width: 100%; overflow: visible; transform: translate(var(--x), var(--y)); transition: transform .45s ease-out; }
+  .signature .frame { animation: float 7s ease-in-out infinite; }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .scanner { transform: translateY(233px); animation: scan 8s ease-in-out infinite; }
+  @keyframes scan {
+    0%, 100% { transform: translateY(135px); opacity: .2; }
+    50% { transform: translateY(341px); opacity: .8; }
+  }
+  .specimen-caption { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 5px 12px; padding: 10px 0; border-top: 1px solid #354763; color: var(--muted); font-size: .875rem; }
+  .specimen-caption strong { color: #a2e8ff; font-weight: 600; }
+
+  .section { padding-block: clamp(48px, 7.5vw, 92px); }
+  .section + .section { border-top: 1px solid var(--line); }
+  .section-head { margin-bottom: 25px; }
+  h2 { font-size: clamp(2rem, 4.1vw, 3.5rem); letter-spacing: -.05em; }
+  .section-head p { margin-top: 9px; }
+  .about { border-top: 1px solid var(--line); }
+  .about-grid { display: grid; grid-template-columns: 1.12fr .88fr; gap: 18px; }
+  .about-copy, .tech { padding: clamp(18px, 3vw, 30px); border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(135deg, #151e2c, #101721); }
+  .about-copy p + p { margin-top: 13px; }
+  strong { color: var(--text); }
+  .tech h3 { font-size: 1.05rem; margin-bottom: 10px; }
+  .tech dl div { display: grid; grid-template-columns: minmax(76px, .48fr) 1fr; align-items: baseline; gap: 12px; padding-block: 7px; }
+  .tech dl div + div { border-top: 1px solid var(--line); }
+  .tech dt { color: var(--blue); font-weight: 700; }
+
+  .projects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  .project { display: grid; align-content: start; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--line); background: var(--surface); transition: border-color .3s, box-shadow .3s; }
+  .project:hover { border-color: #6381ac; box-shadow: 0 10px 34px #070a1280; }
+  .project.sql { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; align-items: stretch; }
+  .project-content { align-self: center; padding: clamp(20px, 3.3vw, 41px); }
+  .project h3 { margin: 8px 0 10px; font-size: clamp(1.5rem, 3vw, 2.45rem); letter-spacing: -.04em; }
+  .case-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 13px; }
+  .case-id { color: #a2e8ff; font: .875rem/1.5 ui-monospace, Consolas, monospace; letter-spacing: .06em; }
+  .status { color: #d2c6ff; font-size: .875rem; }
+  .status::before { content: ""; display: inline-block; width: .4rem; height: .4rem; margin: 0 .45rem .15rem 0; border-radius: 50%; background: currentColor; }
+  .art { min-height: 184px; display: grid; place-items: center; overflow: hidden; }
+  .art svg { display: block; width: min(100%, 500px); height: auto; transition: transform .45s ease; }
+  .project:hover .art svg { transform: scale(1.045); }
+  .sql .art { background: radial-gradient(ellipse at 48% 48%, #23466b, #142435 72%); }
+  .ai .art { background: radial-gradient(ellipse at 55% 52%, #332850, #1a192c 72%); }
+  .film .art { background: radial-gradient(ellipse at 65% 65%, #183e49, #112730 75%); }
+  .film .project-content { order: 1; }
+  .lab-section { background: radial-gradient(ellipse at 67% 55%, #2227437a, transparent 68%); }
+  .lab { display: grid; grid-template-columns: 1.05fr .95fr; align-items: stretch; overflow: hidden; border: 1px solid #475777; border-radius: var(--radius); background: linear-gradient(120deg, #131f2c, #19182e); }
+  .lab-copy { padding: clamp(22px, 5vw, 56px); }
+  .lab h2 { margin: 10px 0 16px; font-size: clamp(2.2rem, 5vw, 4.6rem); }
+  .lab-topics { margin-top: 22px; }
+  .lab-topics div { display: grid; grid-template-columns: minmax(110px, .65fr) 1fr; gap: 8px 12px; padding-block: 8px; border-top: 1px solid #354763; }
+  .lab-topics dt { color: #a2e8ff; font-weight: 650; }
+  .lab-art {
+    min-height: 290px;
+    display: grid;
+    place-items: center;
+    border-left: 1px solid #354763;
+    background: radial-gradient(ellipse, #4c367e85, transparent 70%), repeating-linear-gradient(0deg, transparent 0 27px, #9ccfff0e 27px 28px), repeating-linear-gradient(90deg, transparent 0 27px, #9ccfff0e 27px 28px);
+  }
+  .lab-art svg { width: min(90%, 390px); }
+  .contact { border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(28px, 6vw, 64px) 18px; text-align: center; background: radial-gradient(ellipse at 50% 90%, #1b2d4a, #101721 72%); }
+  .contact .button { margin-top: 19px; }
+  footer { border-top: 1px solid var(--line); padding-block: 21px; color: var(--muted); font-size: .875rem; }
+  .enter { animation: enter .65s ease-out both; }
+  @keyframes enter { from { opacity: .4; translate: 0 14px; } to { opacity: 1; translate: 0 0; } }
+  @media (max-width: 850px) {
+    .hero-inner { min-height: 0; }
+    .brand span { display: none; }
+  }
+  @media (max-width: 670px) {
+    [id] { scroll-margin-top: 135px; }
+    .header-inner { min-height: 65px; padding-block: 7px; gap: 8px 14px; }
+    .nav { gap: 2px 12px; }
+    .nav a { font-size: .875rem; }
+    .nav .nav-contact { padding: 3px 7px; }
+    .hero-inner, .about-grid, .projects, .project.sql, .lab { grid-template-columns: 1fr; }
+    .hero-inner { gap: 10px; padding-block: 49px 25px; }
+    .hero-art { width: min(100%, 420px); margin-inline: auto; }
+    .lab-art { min-height: 185px; border-left: 0; border-top: 1px solid #354763; }
+    .lab-art svg { max-width: 300px; }
+  }
+  @media (max-width: 380px) {
+    .lab-topics div { grid-template-columns: 1fr; gap: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    .signature, .hero-art::before { transform: none; }
+  }
+</style>
+</head>
+<body>
+<a class="button skip" href="#inicio">Saltar al contenido</a>
+<header class="header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#inicio" aria-label="JM / La Autopsia del Dato, inicio">
+      <svg viewBox="0 0 63 52" aria-hidden="true"><path d="M8 18h14v19l-6 6H8l-4-4m27 4V18h6l10 13 10-13h3v25" fill="none" stroke="currentColor" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="18" r="3" fill="currentColor"/></svg>
+      <span>La Autopsia del Dato</span>
+    </a>
+    <nav class="nav" aria-label="Navegación principal">
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#tecnologias">Tecnologías</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#laboratorio">Laboratorio</a>
+      <a class="nav-contact" href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio" tabindex="-1">
+  <section class="hero" aria-labelledby="titulo">
+    <div class="wrap hero-inner">
+      <div class="enter">
+        <p class="eyebrow">JM / La Autopsia del Dato</p>
+        <h1 id="titulo">Datos bajo <span class="gradient">análisis.</span></h1>
+        <p class="intro">Desarrollo y mantengo procesos de datos para reporting regulatorio bancario con SQL, Oracle y Oracle Data Integrator (ODI).</p>
+        <div class="actions">
+          <a class="button primary" href="#proyectos">Explorar expedientes</a>
+          <a class="button" href="#laboratorio">Entrar al laboratorio</a>
+        </div>
+      </div>
+      <figure class="hero-art" data-parallax>
+        <svg class="signature" viewBox="0 0 540 470" role="img" aria-labelledby="monograma">
+          <title id="monograma">Monograma JM trazado como una red de nodos y conexiones</title>
+          <defs>
+            <linearGradient id="glass" x2="1" y2="1" gradientUnits="objectBoundingBox">
+              <stop stop-color="#2e4f79" stop-opacity=".82"/><stop offset=".56" stop-color="#101b2f"/><stop offset="1" stop-color="#262144"/>
+            </linearGradient>
+            <linearGradient id="signature-ink" x2="1" y2="1" gradientUnits="objectBoundingBox">
+              <stop stop-color="#f3f9ff"/><stop offset=".48" stop-color="#94ceff"/><stop offset="1" stop-color="#a091f2"/>
+            </linearGradient>
+            <linearGradient id="edge" x2="1" y2="1" gradientUnits="objectBoundingBox">
+              <stop stop-color="#a6d7ff"/><stop offset=".51" stop-color="#39557e"/><stop offset="1" stop-color="#9782eb"/>
+            </linearGradient>
+            <linearGradient id="scan-light">
+              <stop stop-color="#78e8ff" stop-opacity="0"/><stop offset=".5" stop-color="#b0f3ff"/><stop offset="1" stop-color="#78e8ff" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <g fill="none" stroke="#6fa0e2" stroke-width="1">
+            <path d="M28 238 90 131 268 30 449 127 510 233 443 338 270 437 93 340Z" opacity=".24"/>
+            <path d="M28 238h68l47-28m-53-79 64 24 49-29m65-96v58l41 24m140 15-61 28-43 1m165 77h-63l-39-22m35 127-65-17-39-21m-69 137v-66l-44-25m-133-6 61-25 38 4" opacity=".48"/>
+            <path d="M90 131 270 437m-2-407L93 340m356-213L270 437m-2-407 175 308" opacity=".12" stroke-dasharray="3 8"/>
+          </g>
+          <g fill="#86bcff">
+            <circle cx="28" cy="238" r="4"/><circle cx="90" cy="131" r="3"/><circle cx="268" cy="30" r="3"/>
+            <circle cx="449" cy="127" r="4"/><circle cx="510" cy="233" r="4"/><circle cx="93" cy="340" r="3"/>
+          </g>
+          <g fill="#b3a3f7"><circle cx="443" cy="338" r="3.5"/><circle cx="270" cy="437" r="3"/></g>
+          <g class="frame">
+            <path d="M270 96 425 187v101L270 378l-155-90V187Z" fill="#0a111f" stroke="#263e62" transform="translate(0 12)"/>
+            <path d="M270 96 425 187v101L270 378l-155-90V187Z" fill="url(#glass)" stroke="url(#edge)" stroke-width="1.6"/>
+            <path d="M270 111 409 196v83l-139 82-139-82v-83Z" fill="none" stroke="#88b5ef" stroke-opacity=".25"/>
+            <path d="M115 187h37l22 13m251-13h-33l-20 13m-257 88h39l19-13m252 13h-33l-20-13m-102-179v32m0 250v-29" fill="none" stroke="#8bc2ff" stroke-opacity=".55"/>
+            <path d="M176 192h62v61l-22 25h-41l-14-14m105 14v-86h15l39 44 39-44h13v86" transform="translate(0 5)" fill="none" stroke="#6099f4" stroke-opacity=".2" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M176 192h62v61l-22 25h-41l-14-14m105 14v-86h15l39 44 39-44h13v86" fill="none" stroke="url(#signature-ink)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+            <g fill="#152541" stroke="#bde4ff" stroke-width="2">
+              <circle cx="176" cy="192" r="6"/><circle cx="238" cy="253" r="5"/><circle cx="161" cy="264" r="5"/><circle cx="320" cy="236" r="5"/><circle cx="372" cy="278" r="6"/>
+            </g>
+          </g>
+          <path d="M68 160v-32h32m340 0h32v32m0 151v32h-32m-340 0H68v-32" fill="none" stroke="#88d6f0" stroke-opacity=".58"/>
+          <g class="scanner" fill="none" stroke="url(#scan-light)">
+            <path d="M70 0h400" stroke-width="8" opacity=".13"/>
+            <path d="M70 0h400" stroke-width="1.5"/>
+          </g>
+        </svg>
+        <figcaption class="specimen-caption"><strong>Monograma JM</strong><span>Red de nodos y conexiones</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section about" id="sobre-mi" aria-labelledby="perfil">
+    <div class="wrap">
+      <div class="section-head" data-reveal><h2 id="perfil">Sobre mí</h2></div>
+      <div class="about-grid">
+        <div class="about-copy" data-reveal>
+          <p>Trabajo en el desarrollo y mantenimiento de procesos de datos para el sector bancario. Utilizo <strong>SQL y Oracle</strong> para consultar y transformar datos, y <strong>Oracle Data Integrator</strong> para integrar la información que alimenta los informes regulatorios.</p>
+          <p>Estoy aprendiendo <strong>Python</strong> y explorando cómo aplicar la <strong>automatización y la inteligencia artificial</strong> al desarrollo de software.</p>
+        </div>
+        <div class="tech" id="tecnologias" data-reveal>
+          <h3>Stack de análisis</h3>
+          <dl>
+            <div><dt>SQL</dt><dd>Consulta y transformación de datos</dd></div>
+            <div><dt>Oracle</dt><dd>Base de datos relacional</dd></div>
+            <div><dt>ODI</dt><dd>Integración de datos</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="proyectos" aria-labelledby="trabajos">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <h2 id="trabajos">Expedientes abiertos</h2>
+        <p>Proyectos personales de calidad de datos, automatización y creación audiovisual.</p>
+      </div>
+      <div class="projects">
+        <article class="project sql" data-reveal>
+          <figure class="art" aria-hidden="true">
+            <svg viewBox="0 0 440 220">
+              <g fill="#294f79" stroke="#76aee6" stroke-width="1.4" stroke-linejoin="round">
+                <path d="m220 100 105 42-105 42-105-42Z"/><path d="m220 76 105 42-105 42-105-42Z"/><path d="m220 52 105 42-105 42-105-42Z" fill="#182e4b"/>
+              </g>
+              <g fill="none" stroke="#88bff2" stroke-opacity=".48"><path d="m150 80 105 42m-70-56 105 42m-140 0 105-42m-70 56 105-42"/><path d="M115 94H80l-18-18H39m286 42h35l18 17h23"/></g>
+              <g fill="#9bd5ff"><circle cx="39" cy="76" r="3"/><circle cx="401" cy="135" r="3"/><circle cx="220" cy="94" r="6"/><circle cx="255" cy="80" r="3"/></g>
+            </svg>
+          </figure>
+          <div class="project-content">
+            <div class="case-meta"><span class="case-id">Caso 001</span><span class="status">En desarrollo</span></div>
+            <h3>SQL Data Toolkit</h3>
+            <p>Propuesta de utilidades SQL para detectar duplicados, revisar valores nulos y conciliar datos en Oracle.</p>
+          </div>
+        </article>
+
+        <article class="project ai" data-reveal>
+          <figure class="art" aria-hidden="true">
+            <svg viewBox="0 0 440 190">
+              <g fill="none" stroke-linecap="round">
+                <path d="M55 95h62c46 0 43-53 93-53h115l48 25M55 95h318M55 95h62c46 0 43 53 93 53h115l48-25" stroke="#8f76e4" stroke-width="2"/>
+                <path d="M55 95h62c46 0 43-53 93-53h70m-65 53h158m-222 15c16 16 29 38 59 38h38" stroke="#ddc8ff" stroke-width="3"/>
+              </g>
+              <g fill="#27213e" stroke="#baa6ff" stroke-width="2"><circle cx="55" cy="95" r="8"/><circle cx="373" cy="67" r="5"/><circle cx="373" cy="95" r="8"/><circle cx="373" cy="123" r="5"/></g>
+            </svg>
+          </figure>
+          <div class="project-content">
+            <div class="case-meta"><span class="case-id">Caso 002</span><span class="status">En desarrollo</span></div>
+            <h3>AI Workflow Lab</h3>
+            <p>Experimentos con Python y asistentes de IA para automatizar tareas y documentar los resultados.</p>
+          </div>
+        </article>
+
+        <article class="project film" data-reveal>
+          <figure class="art" aria-hidden="true">
+            <svg viewBox="0 0 440 190">
+              <g transform="rotate(-8 220 95)">
+                <rect x="76" y="37" width="288" height="116" rx="11" fill="#0d202d" stroke="#5b99ad"/>
+                <path d="M89 49h262M89 141h262" stroke="#81c1cd" stroke-width="4" stroke-dasharray="9 8"/>
+                <path d="M96 61h79v68H96zm85 0h78v68h-78zm84 0h79v68h-79z" fill="#224655"/>
+                <path d="M107 116l25-30 23 23 10-7v14zm173 0 24-32 25 32z" fill="#3a6e81"/>
+                <path d="M204 106c0-10 2-27 16-27s16 17 16 27m-27-4c-2 13-9 16-13 10m16-10c0 13-3 17-8 16m23-16c2 13 9 16 13 10m-16-10c0 13 3 17 8 16" fill="none" stroke="#a8e2ef" stroke-width="3.5" stroke-linecap="round"/>
+                <circle cx="215" cy="94" r="2" fill="#a8e2ef"/><circle cx="225" cy="94" r="2" fill="#a8e2ef"/>
+              </g>
+            </svg>
+          </figure>
+          <div class="project-content">
+            <div class="case-meta"><span class="case-id">Caso 003</span><span class="status">En desarrollo</span></div>
+            <h3>Pulpeando la Historia</h3>
+            <p>Un pulpo, humor absurdo y aventuras históricas. Un espacio para experimentar con la creación de vídeos mediante código e IA.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section lab-section" id="laboratorio" aria-labelledby="lab-title">
+    <div class="wrap lab" data-reveal>
+      <div class="lab-copy">
+        <p class="eyebrow">Laboratorio personal</p>
+        <h2 id="lab-title">La Autopsia del Dato</h2>
+        <p>Aquí descompongo una idea en pasos que pueda probar. Comparo lo que ocurre con lo que esperaba y documento lo aprendido para la siguiente prueba.</p>
+        <dl class="lab-topics">
+          <div><dt>Python</dt><dd>Aprender con prototipos pequeños</dd></div>
+          <div><dt>Automatización</dt><dd>Explorar tareas repetibles</dd></div>
+          <div><dt>IA</dt><dd>Evaluar asistentes en tareas de desarrollo</dd></div>
+        </dl>
+      </div>
+      <figure class="lab-art" aria-hidden="true">
+        <svg viewBox="0 0 300 170" fill="none">
+          <ellipse cx="148" cy="83" rx="115" ry="51" transform="rotate(-17 148 83)" stroke="#7566a9"/>
+          <ellipse cx="148" cy="83" rx="89" ry="33" transform="rotate(21 148 83)" stroke="#646fae"/>
+          <path d="m148 32 44 50-44 54-44-54Z" fill="#2e2954" stroke="#a394e7" stroke-width="2"/>
+          <path d="m148 32 15 50-15 54-15-54Zm-44 50h88" stroke="#a394e7" stroke-opacity=".65"/>
+          <path d="M148 12v145M19 82h261" stroke="#a8d5ff" stroke-opacity=".38" stroke-dasharray="3 7"/>
+          <rect x="36" y="22" width="225" height="126" rx="12" stroke="#a8d5ff" stroke-opacity=".32"/>
+          <circle cx="148" cy="82" r="6" fill="#d1c6ff"/><circle cx="50" cy="99" r="4" fill="#9fc8ff"/><circle cx="237" cy="118" r="3" fill="#b3a3f7"/>
+        </svg>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="contacto" aria-labelledby="contact-title">
+    <div class="wrap contact" data-reveal>
+      <h2 id="contact-title">Encuéntrame en GitHub</h2>
+      <a class="button primary" href="https://github.com/JavierMoreno-code">Ver perfil de GitHub</a>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap">JM / La Autopsia del Dato</div></footer>
+<script>
+  const motion = matchMedia('(prefers-reduced-motion: no-preference)');
+
+  if (motion.matches && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('enter');
+          observer.unobserve(entry.target);
+        }
+      }
+    }, { threshold: 0.1 });
+    document.querySelectorAll('[data-reveal]').forEach((element) => observer.observe(element));
+  }
+
+  const artwork = document.querySelector('[data-parallax]');
+  artwork.addEventListener('pointermove', (event) => {
+    if (!motion.matches || event.pointerType !== 'mouse') return;
+    const bounds = artwork.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+    artwork.style.setProperty('--x', (x * 18) + 'px');
+    artwork.style.setProperty('--y', (y * 13) + 'px');
+  });
+  artwork.addEventListener('pointerleave', () => {
+    artwork.style.removeProperty('--x');
+    artwork.style.removeProperty('--y');
+  });
+</script>
+</body>
+</html>

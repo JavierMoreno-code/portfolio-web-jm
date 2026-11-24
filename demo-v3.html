@@ -1,0 +1,297 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101016">
+<meta name="description" content="Portfolio de JM, desarrollador de procesos de datos para reporting regulatorio bancario.">
+<title>JM — Datos, código y experimentación</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #101016;
+    --ink: #f6f4ff;
+    --muted: #bdbacf;
+    --violet: #b6a2ff;
+    --cyan: #a2edff;
+    --line: #343144;
+    --mono: "Cascadia Code", Consolas, monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 1rem/1.65 system-ui, "Segoe UI", sans-serif; }
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 5px; }
+  h1, h2, h3, p, figure, pre { margin: 0; }
+  p { color: var(--muted); }
+  section { scroll-margin-top: 2rem; }
+  .wrap { width: min(1240px, 100% - clamp(34px, 9vw, 132px)); margin-inline: auto; }
+  .mono { font: .875rem/1.5 var(--mono); }
+  .accent { color: var(--cyan); }
+  .skip { position: fixed; z-index: 5; top: 1rem; left: 1rem; translate: 0 -200%; }
+  .skip:focus { translate: 0; }
+  .header { position: relative; z-index: 2; }
+  .header-inner { min-height: 86px; display: flex; align-items: center; justify-content: space-between; gap: 12px 28px; border-bottom: 1px solid var(--line); }
+  .brand { font-size: 1.9rem; font-weight: 850; letter-spacing: -.13em; padding-right: .12em; }
+  .brand span { color: var(--violet); }
+  .nav { display: flex; flex-wrap: wrap; gap: 8px clamp(14px, 3vw, 36px); }
+  .nav a { color: var(--muted); transition: color .25s; }
+  .nav a:hover { color: var(--cyan); }
+  .hero { position: relative; isolation: isolate; }
+  .hero-inner { position: relative; min-height: min(720px, 85svh); display: grid; grid-template-columns: 1fr .87fr; align-items: center; }
+  .hero-copy { position: relative; z-index: 1; padding-block: 76px; }
+  .eyebrow { color: var(--cyan); margin-bottom: 20px; }
+  h1, h2, h3 { line-height: .98; letter-spacing: -.068em; }
+  h1 { font-size: clamp(3.4rem, 7.7vw, 8rem); font-weight: 760; }
+  h1 span { color: var(--violet); }
+  .intro { max-width: 43ch; margin-block: 26px 30px; font-size: 1.08rem; }
+  .button { display: inline-flex; align-items: center; border: 1px solid #d3c8ff; border-radius: 999px; padding: 12px 22px; background: #ded5ff; color: #1b132b; font-weight: 720; transition: background .25s, box-shadow .25s, transform .25s; }
+  .button:hover { background: var(--cyan); box-shadow: 0 0 28px #a2edff3b; transform: translateY(-2px); }
+  .sculpture {
+    --rx: 0deg;
+    --ry: 0deg;
+    position: relative;
+    align-self: stretch;
+    display: grid;
+    place-items: center;
+    isolation: isolate;
+    min-width: 0;
+    perspective: 850px;
+  }
+  .sculpture::before {
+    content: "";
+    position: absolute;
+    inset: 1% -6%;
+    z-index: -1;
+    background: radial-gradient(ellipse at 56% 51%, #3c28828c, transparent 66%),
+      radial-gradient(ellipse at 48% 57%, #244dda55, transparent 49%);
+  }
+  .sculpture::after {
+    content: "";
+    position: absolute;
+    inset: 9% 2%;
+    z-index: -1;
+    background-image: linear-gradient(#bcb2fd16 1px, transparent 1px), linear-gradient(90deg, #bcb2fd16 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse, #000 10%, transparent 69%);
+  }
+  .prism { position: relative; width: min(88%, 475px); aspect-ratio: 1; transform-style: preserve-3d; transform: rotateX(var(--rx)) rotateY(var(--ry)); transition: transform .45s ease-out; }
+  .rings { position: absolute; inset: 0; transform-style: preserve-3d; animation: drift 10s ease-in-out infinite alternate; }
+  .ring {
+    position: absolute;
+    inset: 13%;
+    border-radius: 50%;
+    border: clamp(9px, 2.3vw, 32px) solid transparent;
+    background: linear-gradient(135deg, #111022, #1b1538 56%, #090914) padding-box,
+      conic-gradient(from 45deg, #4222ac, #7ca5ff, #dcf7ff, #8a5bfd, #32157a, #b8a0ff, #4222ac) border-box;
+    box-shadow: 0 0 54px #653af473, inset 0 0 35px #000b;
+    mask-image: radial-gradient(closest-side, transparent 67%, #000 70%);
+    transform: rotateZ(var(--angle)) rotateX(59deg) rotateY(-19deg) translateZ(var(--depth));
+  }
+  .ring:nth-child(1) { --angle: -30deg; --depth: -42px; }
+  .ring:nth-child(2) { --angle: 25deg; --depth: 12px; }
+  .ring:nth-child(3) { --angle: 105deg; --depth: 64px; }
+  .orbit { position: absolute; inset: 6%; border: 1px solid #cdc3ff60; border-radius: 50%; transform: rotate(-35deg) scaleY(.55); }
+  .orbit::after { content: ""; position: absolute; width: 7px; height: 7px; top: 12%; right: 13%; border-radius: 50%; background: #d6f4ff; box-shadow: 0 0 16px 5px #7cabff; }
+  .signal { position: absolute; bottom: 12%; right: 1%; color: var(--violet); }
+  @keyframes drift { from { transform: rotateZ(-29deg) translateY(-8px); } to { transform: rotateZ(-15deg) translateY(8px); } }
+
+  .profile { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 64px; padding-block: clamp(45px, 8vw, 100px); border-block: 1px solid var(--line); }
+  h2 { font-size: clamp(2.6rem, 5.2vw, 5.3rem); }
+  .profile p + p { margin-top: 14px; }
+  strong { color: var(--ink); }
+  .projects { padding-block: clamp(55px, 9vw, 120px); }
+  .projects > h2 { margin-bottom: 36px; }
+  .project { display: grid; grid-template-columns: 1.25fr .75fr; align-items: center; gap: clamp(24px, 7vw, 90px); padding-block: 32px; border-top: 1px solid var(--line); }
+  .project.reverse { grid-template-columns: .75fr 1.25fr; }
+  .project.reverse .art { order: 1; }
+  .project h3 { font-size: clamp(2rem, 4.3vw, 4.4rem); margin-block: 9px 15px; }
+  .status { color: var(--violet); }
+  .status::before { content: ""; display: inline-block; width: .5rem; height: .5rem; margin-right: .55rem; border: 1px solid currentColor; border-radius: 50%; }
+  .art { position: relative; isolation: isolate; overflow: hidden; display: grid; place-items: center; min-height: 215px; aspect-ratio: 1.85; border: 1px solid var(--line); background: #151426; }
+  .art > * { transition: transform .6s cubic-bezier(.2,.75,.2,1); }
+  .project:hover .art > * { transform: var(--hover); }
+  .sql-art { background: radial-gradient(ellipse at 28% 7%, #233a80, transparent 63%), #111525; }
+  .sql-sheet {
+    --hover: rotate(-2deg) skewY(-4deg) scale(1.055);
+    width: min(82%, 370px);
+    padding: clamp(12px, 3vw, 24px);
+    border: 1px solid #718ace;
+    border-radius: 6px;
+    background: #101c37e8;
+    box-shadow: 15px 15px 0 #38558b55, 31px 31px 0 #25375355;
+    color: #e9efff;
+    font: clamp(.72rem, 1.5vw, .94rem)/1.8 var(--mono);
+    white-space: pre-wrap;
+    transform: rotate(-6deg) skewY(-4deg);
+  }
+  .ai-art { background: radial-gradient(ellipse at 60% 70%, #54308b, transparent 65%), #171329; }
+  .wave { --hover: rotate(-12deg) scale(1.1); width: 78%; height: 58%; position: relative; transform: rotate(-12deg); }
+  .wave i { position: absolute; inset: calc(var(--step) * 7%); border: 1px solid #cdb5ff; border-radius: 51% 49% 36% 64%; transform: rotate(calc(var(--step) * 14deg)); box-shadow: 0 0 15px #ad6efe66, inset 0 0 12px #ba8ffa35; }
+  .film-art { background: linear-gradient(125deg, #222042, #111b2b 70%); }
+  .film {
+    --hover: rotate(2deg) scale(1.06);
+    width: 118%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding-block: 12px;
+    border-block: 5px dotted #9cb4ea;
+    transform: rotate(7deg);
+    background: #0e1223;
+  }
+  .frame { display: grid; place-items: center; min-width: 0; aspect-ratio: 1.38; background: radial-gradient(circle at 50% 75%, #33557a, #14243d 64%); color: #c9eaff; font-size: clamp(1.7rem, 5vw, 4.6rem); }
+  .frame:first-child { background: radial-gradient(circle at 78% 28%, #6e3d7a, #261830 63%); }
+  .frame:last-child { background: radial-gradient(circle at 40% 75%, #533368, #1a1738 64%); }
+
+  .lab { position: relative; isolation: isolate; overflow: hidden; padding: clamp(26px, 6vw, 76px); border: 1px solid #514774; background: radial-gradient(ellipse at 90% 95%, #382467, transparent 65%), #181426; }
+  .lab::after { content: ""; position: absolute; z-index: -1; width: 48%; aspect-ratio: 1; top: -18%; right: -8%; border-radius: 50%; border: 1px solid #a58bf96b; box-shadow: 0 0 0 18px #a58bf928, 0 0 0 38px #a58bf918, 0 0 0 62px #a58bf910; }
+  .lab p:last-child { margin-top: 18px; max-width: 48ch; }
+  .contact { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; gap: 24px; padding-block: clamp(45px, 8vw, 92px); }
+  footer { border-top: 1px solid var(--line); padding-block: 20px; color: var(--muted); }
+  .entering { animation: enter .72s ease both; }
+  @keyframes enter { from { opacity: .42; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 850px) {
+    .hero-inner { min-height: auto; grid-template-columns: 1fr .77fr; }
+    .hero-copy { padding-block: 62px; }
+    h1 { font-size: clamp(3.2rem, 8vw, 5.3rem); }
+    .project, .project.reverse { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 620px) {
+    .header-inner { min-height: 72px; padding-block: 10px; }
+    .nav { font-size: .875rem; gap: 4px 13px; }
+    .hero-inner, .profile, .project, .project.reverse { grid-template-columns: 1fr; }
+    .hero-copy { padding-block: 48px 0; }
+    .sculpture { min-height: clamp(235px, 78vw, 390px); }
+    .prism { width: min(82%, 350px); }
+    .signal { bottom: 8%; }
+    .project.reverse .art { order: 0; }
+    .project { gap: 18px; }
+    .art { min-height: 180px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+<a class="button skip" href="#inicio">Saltar al contenido</a>
+<header class="header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#inicio" aria-label="JM, inicio">JM<span>.</span></a>
+    <nav class="nav" aria-label="Navegación principal">
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#laboratorio">Laboratorio</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+<main id="inicio">
+  <section class="hero" aria-labelledby="titulo">
+    <div class="wrap hero-inner">
+      <div class="hero-copy entering">
+        <p class="mono eyebrow">JM / Desarrollo de datos</p>
+        <h1 id="titulo">Datos en<br><span>movimiento.</span></h1>
+        <p class="intro">Desarrollo y mantengo procesos de datos para reporting regulatorio bancario con SQL, Oracle y Oracle Data Integrator (ODI).</p>
+        <a class="button" href="#proyectos">Explorar proyectos</a>
+      </div>
+      <div class="sculpture" aria-hidden="true">
+        <div class="prism">
+          <div class="orbit"></div>
+          <div class="rings"><span class="ring"></span><span class="ring"></span><span class="ring"></span></div>
+        </div>
+        <span class="mono signal">// data.flow</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap profile" id="sobre-mi" aria-labelledby="perfil" data-reveal>
+    <h2 id="perfil">Sobre mí</h2>
+    <div>
+      <p>Utilizo <strong>SQL y Oracle</strong> para consultar y transformar datos, y <strong>Oracle Data Integrator</strong> para integrar la información que alimenta los informes regulatorios.</p>
+      <p>Estoy aprendiendo <strong>Python</strong> y explorando aplicaciones de la <strong>automatización</strong> y la <strong>inteligencia artificial</strong> en el desarrollo de software.</p>
+    </div>
+  </section>
+
+  <section class="wrap projects" id="proyectos" aria-labelledby="trabajos">
+    <h2 id="trabajos">Proyectos</h2>
+    <article class="project" data-reveal>
+      <figure class="art sql-art" aria-hidden="true">
+        <pre class="sql-sheet"><span class="accent">SELECT</span> id, COUNT(*)
+<span class="accent">FROM</span> registros
+<span class="accent">GROUP BY</span> id
+<span class="accent">HAVING</span> COUNT(*) &gt; 1;</pre>
+      </figure>
+      <div>
+        <span class="status mono">En desarrollo</span>
+        <h3>SQL Data Toolkit</h3>
+        <p>Propuesta de utilidades SQL para detectar duplicados, revisar valores nulos y conciliar datos en Oracle.</p>
+      </div>
+    </article>
+    <article class="project reverse" data-reveal>
+      <figure class="art ai-art" aria-hidden="true">
+        <div class="wave"><i style="--step: 0"></i><i style="--step: 1"></i><i style="--step: 2"></i><i style="--step: 3"></i><i style="--step: 4"></i><i style="--step: 5"></i></div>
+      </figure>
+      <div>
+        <span class="status mono">En desarrollo</span>
+        <h3>AI Workflow Lab</h3>
+        <p>Experimentos con Python y asistentes de IA para automatizar tareas y documentar los resultados.</p>
+      </div>
+    </article>
+    <article class="project" data-reveal>
+      <figure class="art film-art" aria-hidden="true">
+        <div class="film"><span class="frame">◐</span><span class="frame">🐙</span><span class="frame">✦</span></div>
+      </figure>
+      <div>
+        <span class="status mono">En desarrollo</span>
+        <h3>Pulpeando la Historia</h3>
+        <p>Un pulpo, humor absurdo y aventuras históricas. Un proyecto de creación de vídeos con código e IA.</p>
+      </div>
+    </article>
+  </section>
+
+  <section class="wrap lab" id="laboratorio" aria-labelledby="lab-title" data-reveal>
+    <p class="mono eyebrow">Laboratorio personal</p>
+    <h2 id="lab-title">La Autopsia del Dato</h2>
+    <p>Un espacio para poner a prueba ideas con Python, automatización e IA y documentar lo que aprendo.</p>
+  </section>
+
+  <section class="wrap contact" id="contacto" aria-labelledby="contact-title">
+    <h2 id="contact-title">Contacto</h2>
+    <a class="button" href="https://github.com/JavierMoreno-code">Ver perfil de GitHub</a>
+  </section>
+</main>
+<footer><div class="wrap mono">JM / Portfolio profesional</div></footer>
+<script>
+  const motion = matchMedia('(prefers-reduced-motion: no-preference)');
+
+  if ('IntersectionObserver' in window && motion.matches) {
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('entering');
+          observer.unobserve(entry.target);
+        }
+      }
+    }, { threshold: 0.16 });
+    document.querySelectorAll('[data-reveal]').forEach((section) => observer.observe(section));
+  }
+
+  const sculpture = document.querySelector('.sculpture');
+  sculpture.addEventListener('pointermove', (event) => {
+    if (!motion.matches || event.pointerType !== 'mouse') return;
+    const bounds = sculpture.getBoundingClientRect();
+    const horizontal = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const vertical = (event.clientY - bounds.top) / bounds.height - 0.5;
+    sculpture.style.setProperty('--ry', (horizontal * 16) + 'deg');
+    sculpture.style.setProperty('--rx', (vertical * -16) + 'deg');
+  });
+  sculpture.addEventListener('pointerleave', () => {
+    sculpture.style.removeProperty('--ry');
+    sculpture.style.removeProperty('--rx');
+  });
+</script>
+</body>
+</html>
+

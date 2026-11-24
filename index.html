@@ -1,56 +1,296 @@
-<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#070b13" />
-  <title>JM | Desarrollo de datos y reporting regulatorio</title>
-  <meta name="description" content="Portfolio de JM, desarrollador especializado en SQL, Oracle y Oracle Data Integrator (ODI) para reporting regulatorio bancario." />
-  <style>
-    :root {--bg:#070b13;--surface:#0e1421;--surface2:#111b2b;--txt:#ecf5ff;--muted:#91a2b8;--line:#263345;--blue:#50b7ff;--aqua:#50e5d4;--violet:#9e8dff;--radius:20px;}
-    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--txt);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.6;overflow-x:hidden} a{color:inherit;text-decoration:none} button{font:inherit} ::selection{background:#50b7ff66;color:#fff}
-    .page-glow{position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(ellipse 42% 32% at 78% 12%,#184f8136,transparent),radial-gradient(ellipse 40% 35% at 10% 64%,#123b5430,transparent)}
-    .grid-bg{position:absolute;inset:0;pointer-events:none;opacity:.19;background-image:linear-gradient(#32638b44 1px,transparent 1px),linear-gradient(90deg,#32638b44 1px,transparent 1px);background-size:52px 52px;mask-image:linear-gradient(to bottom,#000,transparent 85%)}
-    .container{width:min(1160px,calc(100% - 44px));margin:auto}.header{height:80px;position:sticky;top:0;z-index:20;background:#070b13cf;backdrop-filter:blur(18px);border-bottom:1px solid #24324788}.header-in{height:100%;display:flex;align-items:center;justify-content:space-between;gap:30px}.brand{font-size:23px;font-weight:850;letter-spacing:-1.5px;display:flex;align-items:center;gap:8px}.bracket{color:var(--blue);font-weight:500}.brand small{font-size:10px;font-weight:700;letter-spacing:2px;color:#92a8c4;margin-left:8px;border-left:1px solid var(--line);padding-left:15px}.nav{display:flex;gap:28px;align-items:center}.nav a{font-size:13px;color:#b7c6d8;transition:.2s}.nav a:hover{color:var(--blue)}.nav .nav-contact{border:1px solid #426788;padding:9px 15px;border-radius:9px;color:#e5f5ff}.mobile-nav{display:none}
-    .hero{min-height:680px;position:relative;display:flex;align-items:center;padding:90px 0 105px}.hero-in{position:relative;z-index:2;display:grid;grid-template-columns:1.22fr .78fr;align-items:center;gap:60px}.eyebrow{font-size:12px;letter-spacing:2.6px;color:var(--aqua);font-weight:750;text-transform:uppercase}.eyebrow .dot{display:inline-block;width:7px;height:7px;background:#44dbaa;border-radius:50%;box-shadow:0 0 14px #44dbaa;margin-right:9px}.hero h1{font-size:clamp(49px,6.3vw,88px);line-height:1.03;letter-spacing:-5px;margin:23px 0 20px;font-weight:850}.hero h1 em{font-style:normal;background:linear-gradient(96deg,#65d7ff 6%,#5d9fff 53%,#ae95ff);background-clip:text;-webkit-background-clip:text;color:transparent}.intro{font-size:17px;color:#a8b9ca;max-width:550px;margin:0 0 29px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;gap:11px;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:750;transition:transform .2s,background .2s;border:1px solid #415269;cursor:pointer}.btn:hover{transform:translateY(-3px)}.btn.primary{background:linear-gradient(110deg,#5ccaff,#4697ef);border-color:transparent;color:#061421}.btn.secondary{background:#101827aa;color:#e6f3ff}.tiny-note{margin-top:29px;display:flex;align-items:center;gap:18px;color:#8195ac;font-size:12px;flex-wrap:wrap}.tiny-note span::before{content:'✓';color:var(--aqua);margin-right:7px}
-    .hero-art{height:400px;display:flex;align-items:center;justify-content:center;position:relative}.orbit{position:absolute;border:1px solid #4784b43b;border-radius:50%;width:345px;height:345px;animation:spin 35s linear infinite}.orbit:nth-child(2){width:285px;height:285px;animation-direction:reverse;border-style:dashed}.orbit:after{content:'';position:absolute;width:8px;height:8px;top:42px;left:43px;background:var(--aqua);border-radius:50%;box-shadow:0 0 20px var(--aqua)}@keyframes spin{to{transform:rotate(360deg)}}.logo-tile{position:relative;z-index:1;width:245px;height:245px;border:1px solid #4b84bb8e;border-radius:36px;display:grid;place-items:center;background:linear-gradient(135deg,#122437ef,#0b111cf5);box-shadow:0 0 90px #3288b327,inset 0 0 60px #3a9cc412;transform:rotate(-8deg)}.logo-text{font-size:90px;font-weight:850;letter-spacing:-12px;transform:rotate(8deg);margin-left:-10px;text-shadow:0 0 30px #aad9ff22}.logo-text i{font-style:normal;color:var(--blue);font-weight:350;font-size:47px;vertical-align:14px;letter-spacing:-4px}.art-chip{position:absolute;z-index:2;background:#101f32;border:1px solid #315170;border-radius:9px;padding:9px 13px;color:#b2d7f6;font-family:ui-monospace,monospace;font-size:11px;box-shadow:0 10px 30px #0005}.chip-a{top:45px;left:1px}.chip-b{bottom:45px;right:1px}.chip-c{right:-20px;top:90px;color:var(--aqua)}
-    .section{padding:88px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:28px;margin-bottom:34px}.kicker{color:var(--blue);font-family:ui-monospace,monospace;font-size:12px;letter-spacing:1.5px;font-weight:700}.section h2{font-size:clamp(30px,3.4vw,43px);line-height:1.12;letter-spacing:-1.4px;margin:12px 0 8px}.section-sub{color:var(--muted);font-size:15px;max-width:570px}.line-link{color:#85ceff;font-size:13px;white-space:nowrap}.line-link:hover{text-decoration:underline}
-    .about-strip{display:grid;grid-template-columns:1.15fr .85fr;gap:30px}.panel{background:linear-gradient(150deg,#111c2a,#0b111b);border:1px solid var(--line);border-radius:var(--radius);padding:28px}.panel p{color:#acbbcc;margin:0;font-size:15px}.metric-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.metric{border:1px solid #28394c;border-radius:14px;padding:21px 18px;background:#111e2a}.metric strong{font-size:25px;display:block;color:#d5f1ff;letter-spacing:-.8px}.metric span{font-size:12px;color:#99abc1}
-    .skills{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.skill{border:1px solid #34495e;background:#142234;padding:7px 12px;border-radius:8px;font-size:12px;color:#c9def1}.skill.highlight{border-color:#328cac;color:#8ce6ff}
-    .project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:19px}.project-card{background:#0e1624;border:1px solid #273549;border-radius:18px;overflow:hidden;transition:transform .25s,border-color .25s}.project-card:hover{transform:translateY(-6px);border-color:#467ca2}.project-image{height:160px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}.project-image::before{content:'';position:absolute;inset:0;background-image:linear-gradient(90deg,#fff1 1px,transparent 1px),linear-gradient(#fff1 1px,transparent 1px);background-size:29px 29px;opacity:.36}.project-image .visual{position:relative;font-family:ui-monospace,monospace;font-size:39px;font-weight:750;text-shadow:0 5px 30px #0007}.project-image.sql{background:radial-gradient(circle at center,#135b7a,#0d2844 75%)}.project-image.ai{background:radial-gradient(circle at center,#57408c,#1b1c44 75%)}.project-image.pulpo{background:radial-gradient(circle at center,#176e75,#0d3746 75%)}.project-image .project-label{position:absolute;top:12px;right:12px;border:1px solid #ffffff35;background:#08162499;color:#e0f4ff;font-size:10px;padding:5px 8px;border-radius:6px}.project-content{padding:22px}.project-category{font-size:10px;letter-spacing:1.4px;color:var(--aqua);text-transform:uppercase;font-weight:800}.project-content h3{font-size:19px;line-height:1.25;margin:10px 0}.project-content p{font-size:13px;color:#9cacc0;min-height:64px;margin:0}.tags{display:flex;gap:6px;flex-wrap:wrap;margin:20px 0 12px}.tag{font-size:10px;color:#a3b6c9;background:#1a293b;padding:4px 8px;border-radius:5px}.project-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #283649;padding-top:15px;margin-top:12px;color:#86cfff;font-size:12px}.project-bottom .status{color:#94a5b9}
-    .lab{margin:20px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;background:linear-gradient(115deg,#0c2431,#15192b 72%);border:1px solid #345371;border-radius:20px;padding:38px}.lab h3{font-size:25px;letter-spacing:-.7px;margin:10px 0}.lab p{font-size:14px;color:#adc0d0;margin-bottom:0}.terminal{border:1px solid #3c566b;border-radius:12px;overflow:hidden;background:#07121d;box-shadow:0 25px 60px #0004}.terminal-head{background:#152637;padding:10px 13px;border-bottom:1px solid #2b4558;display:flex;align-items:center;gap:6px}.terminal-head b{width:8px;height:8px;border-radius:50%;background:#6c8091}.terminal-head b:first-child{background:#ff7777}.terminal-head b:nth-child(2){background:#f4c65f}.terminal-head b:nth-child(3){background:#5bc997}.terminal-head span{margin:auto;color:#839baf;font-family:monospace;font-size:10px}.terminal pre{margin:0;padding:20px;color:#9ac2d9;font-size:12px;line-height:1.9;overflow:auto}.terminal .green{color:#4edeb3}.terminal .blue{color:#64caff}.terminal .purple{color:#bc9eff}
-    .cta{text-align:center;background:radial-gradient(ellipse at center,#143049,#0b1421 67%);border:1px solid #29485f;border-radius:24px;padding:68px 20px;margin:40px 0 90px}.cta h2{font-size:clamp(30px,4.5vw,48px);letter-spacing:-1.5px;margin:12px 0}.cta p{color:#a8bdcd;margin:0 auto 25px;max-width:480px}.footer{border-top:1px solid var(--line);padding:27px 0;color:#7e92a8;font-size:12px}.footer-in{display:flex;justify-content:space-between;align-items:center;gap:20px}.footer strong{color:#c1d5e7}
-    .reveal{opacity:0;transform:translateY(18px);transition:opacity .65s,transform .65s}.reveal.visible{opacity:1;transform:translateY(0)}
-    @media(max-width:900px){.hero-in{grid-template-columns:1fr .7fr;gap:14px}.hero h1{letter-spacing:-3px}.hero-art{transform:scale(.75)}.project-grid{grid-template-columns:1fr 1fr}.project-grid .project-card:last-child{grid-column:span 2}.about-strip{grid-template-columns:1fr}.lab{grid-template-columns:1fr}}
-    @media(max-width:680px){.header{height:67px}.brand small{display:none}.nav{gap:12px}.nav>a:not(.nav-contact){display:none}.hero{min-height:auto;padding:80px 0 50px}.hero-in{grid-template-columns:1fr}.hero h1{font-size:clamp(48px,13vw,73px);letter-spacing:-3px}.hero-art{height:295px;transform:scale(.78);margin-top:14px}.intro{font-size:15px}.section{padding:62px 0}.section-head{display:block}.section-head .line-link{display:inline-block;margin-top:12px}.project-grid{grid-template-columns:1fr}.project-grid .project-card:last-child{grid-column:span 1}.project-content p{min-height:0}.metric-row{grid-template-columns:1fr 1fr}.lab{padding:23px}.footer-in{flex-direction:column;align-items:flex-start}.cta{margin-bottom:50px;padding:45px 18px}}
-    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#11151a">
+<meta name="description" content="Portfolio de JM, desarrollador de procesos de datos para reporting regulatorio bancario y autor de La Autopsia del Dato.">
+<title>JM — La Autopsia del Dato</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --graphite: #11151a;
+    --steel: #667884;
+    --white: #edf4f5;
+    --blue: #74beda;
+    --muted: #bac9cf;
+    --line: #394650;
+    --paper: #e7ecec;
+    --ink: #17262e;
+    --mono: "Cascadia Mono", Consolas, monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; color: var(--white); background: var(--graphite); font: 1rem/1.65 system-ui, "Segoe UI", sans-serif; }
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+  h1, h2, h3, p, figure, dl, dd { margin: 0; }
+  h1, h2, h3 { line-height: 1.07; letter-spacing: -.05em; }
+  h2 { font-size: clamp(2.25rem, 4.6vw, 4.45rem); }
+  h3 { font-size: clamp(1.55rem, 2.7vw, 2.4rem); }
+  section[id], main[id], #tecnologias { scroll-margin-top: 7rem; }
+  .wrap { width: min(1260px, calc(100% - clamp(36px, 9vw, 118px))); margin-inline: auto; }
+  .section { padding-block: clamp(54px, 8vw, 112px); }
+  .eyebrow { color: var(--blue); font: 650 .875rem/1.5 var(--mono); letter-spacing: .065em; }
+  .skip { position: fixed; top: 1rem; left: 1rem; z-index: 5; transform: translateY(-200%); }
+  .skip:focus { transform: none; }
+  .header { position: sticky; z-index: 2; top: 0; background: #11151af2; border-bottom: 1px solid var(--line); backdrop-filter: blur(14px); }
+  .header-inner, .nav, .brand { display: flex; align-items: center; }
+  .header-inner { min-height: 72px; justify-content: space-between; gap: 12px 28px; }
+  .brand { gap: 11px; font-weight: 650; white-space: nowrap; }
+  .brand-mark { display: grid; place-items: center; width: 38px; height: 34px; border: 1px solid #78909b; color: var(--blue); font: 750 1rem var(--mono); }
+  .nav { flex-wrap: wrap; gap: 4px clamp(12px, 2.8vw, 33px); }
+  .nav a { color: var(--muted); font-size: .9375rem; padding-block: 5px; transition: color .22s; }
+  .nav a:hover { color: var(--white); }
+  .hero {
+    overflow: hidden;
+    isolation: isolate;
+    background: repeating-linear-gradient(90deg, #26343c 0 1px, transparent 1px 205px), linear-gradient(105deg, #12171c 5%, #1b252c 65%, #1c2830);
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-inner { position: relative; display: grid; grid-template-columns: minmax(0, .83fr) minmax(0, 1.17fr); align-items: center; min-height: 575px; }
+  .hero-copy { position: relative; z-index: 1; padding-block: 62px; }
+  .hero h1 { font-size: clamp(3.1rem, 5.5vw, 5.8rem); margin-block: 16px 22px; max-width: 10ch; }
+  .hero h1 span { color: #a5d6e6; }
+  .lead { color: var(--muted); max-width: 41ch; font-size: 1.09rem; }
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 25px; }
+  .button { display: inline-flex; align-items: center; padding: 10px 16px; border: 1px solid #70838e; border-radius: 4px; font-weight: 700; transition: background .25s, box-shadow .25s; }
+  .button.primary { color: #14232a; background: var(--white); border-color: var(--white); }
+  .button:hover { background: #30434d; box-shadow: 0 0 22px #74beda40; }
+  .button.primary:hover { background: #bce5f0; }
+  .room {
+    position: relative;
+    min-width: 0;
+    margin-inline: 0 -6%;
+    mask-image: linear-gradient(to right, transparent, #000 13%, #000 88%, transparent),
+      linear-gradient(to bottom, transparent, #000 9%, #000 90%, transparent);
+    mask-composite: intersect;
+  }
+  .room img { display: block; width: 100%; height: auto; }
+  @media (min-width: 1051px) {
+    .hero-inner { grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr); }
+    .room { margin-inline-end: calc(-1 * min(9%, max(clamp(18px, 4.5vw, 59px), (100vw - 1260px) / 2))); }
+  }
+
+  .profile { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); gap: clamp(27px, 7vw, 105px); align-items: start; }
+  .profile h2 { margin-bottom: 19px; }
+  .profile p { color: var(--muted); max-width: 56ch; }
+  .profile p + p { margin-top: 13px; }
+  .tools { padding: 18px 22px; border-top: 1px solid #78919c; background: linear-gradient(135deg, #263139, #171e24); }
+  .tools h3 { margin-bottom: 12px; }
+  .tools dl div { display: grid; grid-template-columns: minmax(65px, .45fr) 1fr; gap: 10px; padding-block: 8px; border-top: 1px solid var(--line); }
+  .tools dt { color: var(--blue); font-weight: 700; }
+  .tools dd { color: var(--muted); }
+
+  .files { color-scheme: light; background: var(--paper); color: var(--ink); }
+  .section-intro { margin-block: 10px 31px; color: #40545e; }
+  .cases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  .case { background: #f4f7f7; border: 1px solid #a5b5ba; box-shadow: 0 3px 0 #cad4d6; transition: box-shadow .25s, border-color .25s; }
+  .case:first-child { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; }
+  .case-copy { padding: clamp(19px, 3.3vw, 40px); align-self: center; }
+  .case-head { display: flex; flex-wrap: wrap; align-items: center; gap: 7px 12px; margin-bottom: 12px; }
+  .case-id { display: inline-block; padding: 3px 9px; background: #d6e2e5; border-left: 2px solid #4f7585; font: 650 .875rem/1.5 var(--mono); }
+  .status { color: #3e5964; font-size: .875rem; }
+  .case-copy p { margin-top: 10px; color: #3b515b; }
+  .case-copy .stack { color: #254958; font-weight: 650; font-size: .875rem; }
+  .case-art { min-height: 175px; display: grid; place-items: center; overflow: hidden; background: #202d33; }
+  .case-art svg { display: block; width: min(100%, 520px); transition: filter .35s ease-out; }
+  @media (hover: hover) and (pointer: fine) {
+    .case:hover { border-color: #527889; box-shadow: 0 3px 0 #a8bcc3, 0 9px 24px #39556026; }
+    .case:hover svg { filter: brightness(1.09); }
+  }
+
+  .lab-section { background: linear-gradient(110deg, #141c22, #1a252d 65%, #11171c); }
+  .lab { display: grid; grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr); align-items: center; gap: clamp(24px, 5vw, 72px); }
+  .lab h2 { margin-block: 12px 16px; }
+  .lab p:last-child { max-width: 45ch; color: var(--muted); }
+  .lab-art { border: 1px solid #647985; background: #172329; box-shadow: 0 12px 30px #080c1066, 0 2px 7px #080c104d; }
+  .lab-art svg { display: block; width: 100%; height: auto; }
+  .contact { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px; }
+  #contacto, footer { border-top: 1px solid var(--line); }
+  footer { padding-block: 20px; color: var(--muted); font-size: .875rem; }
+  .appear { animation: appear .7s ease-out both; }
+  @keyframes appear { from { opacity: .5; translate: 0 12px; } to { opacity: 1; translate: 0 0; } }
+
+  @media (max-width: 900px) {
+    .hero-inner { min-height: 510px; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); }
+    .brand-name { display: none; }
+  }
+  @media (max-width: 680px) {
+    .header-inner { padding-block: 9px; min-height: 64px; gap: 8px 13px; }
+    .nav { gap: 1px 12px; }
+    .nav a { font-size: .875rem; }
+    .hero-inner, .profile, .cases, .case:first-child, .lab { grid-template-columns: 1fr; }
+    .hero-inner { min-height: 0; padding-block-end: 12px; }
+    .hero-copy { padding-block: 45px 20px; }
+    .room { margin-inline: -12px; }
+    .case-art { min-height: 145px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
+</style>
 </head>
 <body>
-  <div class="page-glow"></div>
-  <header class="header"><div class="container header-in"><a href="#inicio" class="brand" aria-label="JM, volver al inicio"><span class="bracket">&lt;</span> JM <span class="bracket">/&gt;</span><small>DEVELOPER PORTFOLIO</small></a><nav class="nav" aria-label="Navegación principal"><a href="#sobre-mi">Sobre mí</a><a href="#tecnologias">Tecnologías</a><a href="#proyectos">Proyectos</a><a href="#laboratorio">Laboratorio</a><a class="nav-contact" href="#contacto">Hablemos ↗</a></nav></div></header>
-  <main>
-    <section class="hero" id="inicio"><div class="grid-bg"></div><div class="container hero-in"><div><div class="eyebrow"><span class="dot"></span> DESARROLLO · DATOS · AUTOMATIZACIÓN</div><h1>Hola, soy <em>JM.</em><br>Desarrollador<br>de datos<span style="color:var(--blue)">.</span></h1><p class="intro">Desarrollo y mantengo procesos de datos para reporting regulatorio bancario con SQL, Oracle y Oracle Data Integrator (ODI).</p><div class="hero-actions"><a class="btn primary" href="#proyectos">Explorar proyectos <span aria-hidden="true">↗</span></a><a class="btn secondary" href="#sobre-mi">Conóceme <span aria-hidden="true">↓</span></a></div><div class="tiny-note"><span>Reporting regulatorio bancario</span><span>Python, automatización e IA</span></div></div><div class="hero-art" aria-label="Emblema JM con estética tecnológica" role="img"><div class="orbit"></div><div class="orbit"></div><div class="logo-tile"><div class="logo-text"><i>‹</i>JM<i>›</i></div></div><div class="art-chip chip-a">{ data: "ready" }</div><div class="art-chip chip-b">&gt; build --portfolio</div><div class="art-chip chip-c">// next level</div></div></div></section>
-    <section class="section" id="sobre-mi"><div class="container"><div class="section-head reveal"><div><div class="kicker">01 / QUIÉN SOY</div><h2>Desarrollo para reporting bancario</h2><div class="section-sub">Procesos de datos para la elaboración de informes regulatorios.</div></div></div><div class="about-strip"><div class="panel reveal"><p>Mi trabajo abarca el desarrollo y mantenimiento de procesos de datos para el sector bancario. Utilizo <strong style="color:#ecf5ff">SQL y Oracle</strong> para consultar y transformar datos, y <strong style="color:#ecf5ff">Oracle Data Integrator (ODI)</strong> para integrar la información que alimenta el reporting regulatorio.<br><br>Estoy aprendiendo Python y explorando cómo aplicar la automatización y la inteligencia artificial al desarrollo de software.</p><div class="skills" id="tecnologias"><span class="skill highlight">SQL</span><span class="skill highlight">Oracle</span><span class="skill highlight">ODI</span><span class="skill">Git & GitHub</span><span class="skill">Python · aprendiendo</span><span class="skill">IA aplicada</span><span class="skill">Automatización</span></div></div><div class="metric-row reveal"><div class="metric"><strong>SQL</strong><span>Especialidad principal</span></div><div class="metric"><strong>Oracle</strong><span>Entorno de trabajo</span></div><div class="metric"><strong>ODI</strong><span>Integración de datos</span></div><div class="metric"><strong>Reporting</strong><span>Regulación bancaria</span></div></div></div></div></section>
-    <section class="section" id="proyectos"><div class="container"><div class="section-head reveal"><div><div class="kicker">02 / TRABAJOS DESTACADOS</div><h2>Proyectos y experimentos<span style="color:var(--blue)">.</span></h2><div class="section-sub">Iniciativas personales sobre validación de datos, automatización y creación audiovisual.</div></div></div><div class="project-grid">
-      <article class="project-card reveal"><div class="project-image sql"><div class="visual">{ SQL }</div><span class="project-label">En desarrollo</span></div><div class="project-content"><span class="project-category">DATOS · BACKEND</span><h3>SQL Data Toolkit</h3><p>Propuesta de utilidades SQL para detectar duplicados, revisar valores nulos y conciliar datos en Oracle.</p><div class="tags"><span class="tag">SQL</span><span class="tag">Oracle</span><span class="tag">Data Quality</span></div><div class="project-bottom"><span>Ficha en preparación</span><span class="status">En desarrollo</span></div></div></article>
-      <article class="project-card reveal"><div class="project-image ai"><div class="visual" style="color:#c5aaff">&lt; AI /&gt;</div><span class="project-label">En desarrollo</span></div><div class="project-content"><span class="project-category">IA · AUTOMATIZACIÓN</span><h3>AI Workflow Lab</h3><p>Propuesta de experimentación con Python y asistentes de IA para automatizar tareas y documentar los resultados.</p><div class="tags"><span class="tag">IA</span><span class="tag">Python</span><span class="tag">Automatización</span></div><div class="project-bottom"><span>Ficha en preparación</span><span class="status">En desarrollo</span></div></div></article>
-      <article class="project-card reveal"><div class="project-image pulpo"><div class="visual" style="font-size:76px">🐙</div><span class="project-label">En desarrollo</span></div><div class="project-content"><span class="project-category">CREATIVIDAD · VÍDEO</span><h3>Pulpeando la Historia</h3><p>Un pulpo, humor absurdo y aventuras históricas. Un laboratorio de creación de vídeos con código e IA.</p><div class="tags"><span class="tag">Python</span><span class="tag">FFmpeg</span><span class="tag">IA</span></div><div class="project-bottom"><span>Producción audiovisual</span><span class="status">En desarrollo</span></div></div></article>
-    </div></div></section>
-    <section class="section" id="laboratorio"><div class="container"><div class="lab reveal"><div><div class="kicker">03 / EL LADO EXPERIMENTAL</div><h3>La Autopsia del Dato <span aria-hidden="true">🔬</span></h3><p>Mi laboratorio personal para explorar Python, automatización e inteligencia artificial a través de proyectos creativos.</p><p style="color:#81d8ff;margin-top:18px;font-size:12px">El laboratorio reúne pruebas de código y notas sobre lo aprendido.</p></div><div class="terminal" aria-label="Fragmento decorativo de terminal"><div class="terminal-head"><b></b><b></b><b></b><span>laboratorio.py</span></div><pre><span class="purple">class</span> <span class="blue">LaAutopsiaDelDato</span>:
-    ideas = <span class="green">"demasiadas"</span>
-    presupuesto = <span class="green">0</span>
-    curiosidad = <span class="green">float('inf')</span>
+<a class="button primary skip" href="#inicio">Saltar al contenido</a>
+<header class="header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#inicio" aria-label="JM, inicio"><span class="brand-mark" aria-hidden="true">JM</span><span class="brand-name">La Autopsia del Dato</span></a>
+    <nav class="nav" aria-label="Navegación principal">
+      <a href="#sobre-mi">Sobre mí</a><a href="#tecnologias">Tecnologías</a><a href="#proyectos">Expedientes</a><a href="#laboratorio">Laboratorio</a><a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+<main id="inicio" tabindex="-1">
+  <section class="hero" aria-labelledby="titulo">
+    <div class="wrap hero-inner">
+      <div class="hero-copy appear">
+        <p class="eyebrow">JM / La Autopsia del Dato</p>
+        <h1 id="titulo">El dato, <span>bajo examen.</span></h1>
+        <p class="lead">Desarrollo y mantengo procesos de datos para reporting regulatorio bancario con SQL, Oracle y Oracle Data Integrator (ODI).</p>
+        <div class="actions"><a class="button primary" href="#proyectos">Explorar expedientes</a><a class="button" href="#laboratorio">Ver laboratorio</a></div>
+      </div>
 
-    <span class="purple">def</span> <span class="blue">experimentar</span>(self):
-        <span class="purple">return</span> <span class="green">"Algo saldrá de aquí 🐙"</span>
+      <figure class="room appear">
+        <img src="assets/dato-autopsia.png" width="1790" height="879" alt="Mascota con forma de informe y ojos en X, tumbada en una mesa de autopsias bajo un esc?ner de luz azul.">
+      </figure>
+    </div>
+  </section>
 
-&gt; <span class="green">Sistema listo para el caos_</span></pre></div></div></div></section>
-    <section class="container" id="contacto"><div class="cta reveal"><div class="eyebrow">¿CONSTRUIMOS ALGO?</div><h2>Encuéntrame en GitHub</h2><p>Puedes seguir mi perfil para ver los repositorios que vaya publicando.</p><a class="btn primary" href="https://github.com/JavierMoreno-code">Ver perfil de GitHub ↗</a></div></section>
-  </main>
-  <footer class="footer"><div class="container footer-in"><span><strong>&lt; JM /&gt;</strong> · Diseñado para construir, aprender y evolucionar.</span><span>Portfolio profesional · La Autopsia del Dato</span></div></footer>
-  <script>
-    const observer = new IntersectionObserver(entries => entries.forEach(e => {if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.08});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-  </script>
+  <section class="section wrap profile" id="sobre-mi" aria-labelledby="perfil">
+    <div data-reveal>
+      <h2 id="perfil">Sobre mí</h2>
+      <p>Trabajo en el desarrollo y mantenimiento de procesos de datos para reporting regulatorio bancario. Uso SQL y Oracle para consultar y transformar datos, y Oracle Data Integrator para integrar la información que alimenta los informes.</p>
+      <p>Estoy aprendiendo Python y explorando la automatización y la inteligencia artificial en el desarrollo de software.</p>
+    </div>
+    <div class="tools" id="tecnologias" data-reveal>
+      <h3>Herramientas de análisis</h3>
+      <dl><div><dt>SQL</dt><dd>Consulta y transformación</dd></div><div><dt>Oracle</dt><dd>Bases de datos</dd></div><div><dt>ODI</dt><dd>Integración de datos</dd></div></dl>
+    </div>
+  </section>
+
+  <section class="section files" id="proyectos" aria-labelledby="expedientes">
+    <div class="wrap">
+      <h2 id="expedientes" data-reveal>Expedientes abiertos</h2>
+      <p class="section-intro">Proyectos personales de calidad de datos, automatización y creación audiovisual.</p>
+      <div class="cases">
+        <article class="case" data-reveal>
+          <figure class="case-art" aria-hidden="true">
+            <svg viewBox="0 0 480 220">
+              <path d="M40 55h400v110H40Z" fill="none" stroke="#4a616a"/>
+              <g fill="#567783" stroke="#9cc6d0">
+                <path d="m238 44 128 48-122 50-128-48Z"/>
+                <path d="m238 63 128 48-122 50-128-48Z" fill="#334c56"/>
+                <path d="m238 84 128 48-122 50-128-48Z" fill="#273c44"/>
+              </g>
+              <g stroke="#82aab5" opacity=".7"><path d="m148 123 127 46m-95-59 127 46m-96-59 127 46m-190 2 122-49m-90 60 121-49m-89 60 121-49"/></g>
+              <path d="m239 108 33 12-31 13-33-12Z" fill="#b4dbe4"/>
+              <path d="M241 121v-42h56m-55 53v38h-49" fill="none" stroke="#e0f4f5" stroke-dasharray="3 4"/>
+            </svg>
+          </figure>
+          <div class="case-copy">
+            <div class="case-head"><span class="case-id">Caso 001</span><span class="status">En desarrollo</span></div>
+            <h3>SQL Data Toolkit</h3>
+            <p>Propuesta de utilidades SQL para detectar duplicados, revisar valores nulos y conciliar datos en Oracle.</p>
+            <p class="stack">SQL · Oracle</p>
+          </div>
+        </article>
+        <article class="case" data-reveal>
+          <figure class="case-art" aria-hidden="true">
+            <svg viewBox="0 0 480 185">
+              <g fill="none" stroke="#6a8995"><path d="M58 128h360M58 53h360M58 90h360" opacity=".45"/><path d="M77 126h47l33-55h69l28-11h132m-229 11 42 53h88l25-37h74" stroke-width="2"/></g>
+              <path d="M77 126h47l33-55h69l28-11h74m-129 64h88l25-37h37" fill="none" stroke="#aec9dc" stroke-width="3"/>
+              <g fill="#c2b8d5"><circle cx="157" cy="71" r="6"/><circle cx="254" cy="60" r="6"/><circle cx="199" cy="124" r="6"/><circle cx="312" cy="87" r="6"/></g>
+            </svg>
+          </figure>
+          <div class="case-copy">
+            <div class="case-head"><span class="case-id">Caso 002</span><span class="status">En desarrollo</span></div>
+            <h3>AI Workflow Lab</h3>
+            <p>Experimentos con Python y asistentes de IA para automatizar tareas y documentar los resultados.</p>
+            <p class="stack">Python · IA · Automatización</p>
+          </div>
+        </article>
+        <article class="case" data-reveal>
+          <figure class="case-art" aria-hidden="true">
+            <svg viewBox="0 0 480 185">
+              <g transform="rotate(-7 240 93)">
+                <rect x="82" y="39" width="316" height="107" rx="4" fill="#17242a" stroke="#8ba5ae"/>
+                <path d="M94 48h291M94 136h291" stroke="#a0b9c1" stroke-width="4" stroke-dasharray="8 8"/>
+                <path d="M98 60h88v64H98zm98 0h88v64h-88zm98 0h88v64h-88z" fill="#394f57"/>
+                <path d="m106 113 26-32 25 24 17-10v18zm199 0 30-36 32 36z" fill="#74909a"/>
+                <path d="M222 97q1-21 18-21t18 21m-31-2q-6 19-16 11m22-10q-2 15-9 18m27-19q6 19 16 11m-22-10q2 15 9 18" fill="none" stroke="#c8e4eb" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="235" cy="87" r="2" fill="#c8e4eb"/><circle cx="245" cy="87" r="2" fill="#c8e4eb"/>
+              </g>
+            </svg>
+          </figure>
+          <div class="case-copy">
+            <div class="case-head"><span class="case-id">Caso 003</span><span class="status">En desarrollo</span></div>
+            <h3>Pulpeando la Historia</h3>
+            <p>Un pulpo, humor absurdo y aventuras históricas. Un experimento de creación de vídeos mediante código e IA.</p>
+            <p class="stack">Python · FFmpeg · IA</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section lab-section" id="laboratorio" aria-labelledby="nombre-lab">
+    <div class="wrap lab">
+      <div data-reveal>
+        <p class="eyebrow">Laboratorio personal</p>
+        <h2 id="nombre-lab">La Autopsia del Dato</h2>
+        <p>Aquí descompongo ideas en pruebas pequeñas. Exploro Python, automatización e inteligencia artificial, y documento lo que observo para decidir qué probar después.</p>
+      </div>
+      <figure class="lab-art" data-reveal>
+        <svg viewBox="0 0 620 390" role="img" aria-labelledby="lab-visual">
+          <title id="lab-visual">Superficie de trabajo iluminada con láminas translúcidas de análisis de datos</title>
+          <defs>
+            <linearGradient id="bench" x2="1" y2="1"><stop stop-color="#172329"/><stop offset=".55" stop-color="#51656c"/><stop offset="1" stop-color="#23333a"/></linearGradient>
+            <linearGradient id="plate" x2="1" y2="1"><stop stop-color="#a4c5cd" stop-opacity=".46"/><stop offset="1" stop-color="#426e7c" stop-opacity=".35"/></linearGradient>
+            <radialGradient id="bench-light" cx=".49" cy=".37"><stop stop-color="#bcf0f5" stop-opacity=".42"/><stop offset="1" stop-color="#bcf0f5" stop-opacity="0"/></radialGradient>
+            <filter id="lab-soft" x="-.1" y="-1" width="1.2" height="3"><feGaussianBlur stdDeviation="5"/></filter>
+          </defs>
+          <path d="M0 0h620v390H0Z" fill="url(#bench)"/>
+          <path d="M0 76h620M0 315h620M84 0v390M534 0v390" stroke="#a1b3ba" stroke-opacity=".34"/>
+          <ellipse cx="312" cy="170" rx="302" ry="192" fill="url(#bench-light)"/>
+          <path d="M126 28h374" stroke="#bce6ef" stroke-width="9" opacity=".34" filter="url(#lab-soft)"/>
+          <path d="M126 28h374" stroke="#e2f6f6" stroke-width="4"/>
+          <g transform="translate(60 54) rotate(-13 250 145)">
+            <rect x="56" y="48" width="369" height="194" rx="9" fill="#0a1419" opacity=".54" transform="translate(11 13)"/>
+            <rect x="56" y="48" width="369" height="194" rx="9" fill="url(#plate)" stroke="#c1dee2"/>
+            <path d="M79 77h322v135H79Z" fill="none" stroke="#b9d5dc" stroke-opacity=".5"/>
+            <path d="M79 123h322M79 167h322m-243-90v135m80-135v135m84-135v135" stroke="#b9d5dc" stroke-opacity=".28"/>
+            <path d="m106 181 61-37 53 12 71-41 77 10m-262 56 61-37 15-34 93-9 16 14" fill="none" stroke="#e1f7f8" stroke-width="2.5"/>
+            <g fill="#d8f3f5"><circle cx="106" cy="181" r="5"/><circle cx="167" cy="144" r="5"/><circle cx="220" cy="156" r="5"/><circle cx="291" cy="115" r="5"/><circle cx="368" cy="125" r="5"/></g>
+          </g>
+          <g transform="translate(360 206) rotate(13 82 57)">
+            <rect width="170" height="108" rx="6" fill="#263940" stroke="#8dabb4"/>
+            <rect x="11" y="12" width="148" height="83" rx="2" fill="#17262e"/>
+            <path d="M25 68h118M25 46h118m-106 0v22m31-22v22m31-22v22m31-22v22" stroke="#748d97" stroke-opacity=".65"/>
+            <path d="m28 65 24-14 24 6 23-19 20 7 22-13" fill="none" stroke="#b9dce5" stroke-width="2"/>
+          </g>
+        </svg>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="contacto" aria-labelledby="contact-title">
+    <div class="wrap contact"><h2 id="contact-title">Encuéntrame en GitHub</h2><a class="button primary" href="https://github.com/JavierMoreno-code">Ver perfil de GitHub</a></div>
+  </section>
+</main>
+<footer><div class="wrap">JM · La Autopsia del Dato</div></footer>
+<script>
+  const motion = matchMedia('(prefers-reduced-motion: no-preference)');
+  if (motion.matches && 'IntersectionObserver' in window) {
+    const reveal = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add('appear');
+        reveal.unobserve(entry.target);
+      }
+    }, { threshold: 0.12 });
+    document.querySelectorAll('[data-reveal]').forEach((element) => reveal.observe(element));
+  }
+</script>
 </body>
 </html>
